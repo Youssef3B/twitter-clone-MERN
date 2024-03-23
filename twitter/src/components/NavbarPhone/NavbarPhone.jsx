@@ -6,7 +6,7 @@ import { IoLogOut } from "react-icons/io5";
 
 function NavbarPhone() {
   return (
-    <div className="lg:hidden fixed bottom-0 bg-zinc-900 w-full border-t  border-t-slate-50">
+    <div className="lg:hidden fixed bottom-0 bg-zinc-900 w-full border-t text-white  border-t-slate-50">
       <ul className="flex justify-between px-4 py-4">
         <li className="flex items-center space-x-1 cursor-pointer">
           <AiFillHome /> <span>Home</span>
