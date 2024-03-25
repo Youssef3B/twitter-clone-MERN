@@ -10,10 +10,13 @@ import EditProfile from "./pages/EditProfile";
 import PostDetails from "./pages/PostDetails";
 import Profile from "./pages/Profile";
 import LoginLayout from "./components/LoginLayout";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
+      <Toaster />
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AppLayout />}>
@@ -21,9 +24,9 @@ function App() {
             <Route path="/allusers" element={<AllUsers />} />
             <Route path="/allsaves" element={<AllSaves />} />
             <Route path="/editpost" element={<EditPost />} />
-            <Route path="/editprofile" element={<EditProfile />} />
+            <Route path="/editprofile/:id" element={<EditProfile />} />
             <Route path="/postdetails" element={<PostDetails />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:id" element={<Profile />} />
           </Route>
           <Route element={<LoginLayout />}>
             <Route path="/register" element={<Register />} />
@@ -34,4 +37,5 @@ function App() {
     </>
   );
 }
+
 export default App;

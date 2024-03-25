@@ -6,6 +6,11 @@ import { FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const id = localStorage.getItem("id");
+
+  function logout() {
+    localStorage.removeItem("id");
+  }
   return (
     <div className="hidden lg:block fixed h-full px-16 py-12">
       <h2 className="mb-10">
@@ -17,7 +22,7 @@ function Navbar() {
             <AiFillHome /> <span>Home</span>
           </li>
         </Link>
-        <Link to={"/profile"}>
+        <Link to={`/profile/${id}`}>
           <li className="flex items-center space-x-2 cursor-pointer text-xl transition hover:text-blue-300">
             <FaUser /> <span>Profile</span>
           </li>
@@ -33,7 +38,7 @@ function Navbar() {
             <HiUsers /> <span>All Users</span>
           </li>
         </Link>
-        <Link to={"register"}>
+        <Link to={"/login"} onClick={logout}>
           <li className="flex items-center space-x-2 cursor-pointer text-xl transition hover:text-blue-300">
             <IoLogOut /> <span>Log Out</span>
           </li>

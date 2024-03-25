@@ -1,6 +1,29 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
 function Register() {
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  async function handlesubmit(e) {
+    e.preventDefault();
+    const { data } = await axios.post("http://localhost:4500/api/register", {
+      name,
+      username,
+      email,
+      password,
+    });
+    if (data.error) {
+      console.log(data.error);
+    } else {
+      console.log("User registered successfully");
+      navigate("/login");
+    }
+  }
   return (
     <div>
       <div className="text-white flex flex-col items-center justify-center mt-36 md:mt-0">
@@ -9,13 +32,15 @@ function Register() {
         <p className="mb-4 font-semibold text-blue-400">
           To Use Twitter Please Enter Your Details
         </p>
-        <form className="flex flex-col mb-3 mt-3 w-96">
+        <form onSubmit={handlesubmit} className="flex flex-col mb-3 mt-3 w-96">
           <label className="my-2" htmlFor="name">
             Name
           </label>
           <input
             className="my-2 bg-slate-900 text-white py-2 px-3 outline-none"
             type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <label className="my-2" htmlFor="name">
             Username
@@ -23,6 +48,8 @@ function Register() {
           <input
             className="my-2 bg-slate-900 text-white py-2 px-3 outline-none"
             type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <label className="my-2" htmlFor="email">
             Email
@@ -30,6 +57,8 @@ function Register() {
           <input
             className="my-2 bg-slate-900 text-white py-2 px-3 outline-none"
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <label className="my-2" htmlFor="password">
             Password
@@ -37,6 +66,8 @@ function Register() {
           <input
             className="my-2 mb-7 bg-slate-900 text-white py-2 px-3 outline-none"
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button
             type="submit"

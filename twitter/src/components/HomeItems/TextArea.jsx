@@ -1,9 +1,27 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 function TextArea() {
+  const id = localStorage.getItem("id");
+  const [user, setUser] = useState("");
+  async function getUser() {
+    const { data } = await axios.get(`http://localhost:4500/api/user/${id}`);
+    if (data) {
+      setUser(data);
+    }
+  }
+  useEffect(() => {
+    getUser();
+  }, []);
   return (
     <div className="border border-stone-800 grid grid-cols-10 p-4 space-x-5">
       <img
         className="h-16 w-16 rounded-full object-cover"
-        src="./avatar.jpeg"
+        src={
+          user && user.avatar === null
+            ? "../uploads/default.jpg"
+            : `../uploads/${user && user.avatar}`
+        }
         alt="avatar"
       />
       <form className="col-span-9" action="">
