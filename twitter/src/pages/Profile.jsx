@@ -6,7 +6,7 @@ import { Link, useParams } from "react-router-dom";
 function Profile() {
   const { id } = useParams();
   const [user, setUser] = useState();
-  console.log(id);
+  const [posts, setPosts] = useState([]);
   async function GetUser() {
     try {
       const { data } = await axios.get(`http://localhost:4500/api/user/${id}`);
@@ -17,8 +17,23 @@ function Profile() {
       console.log(error);
     }
   }
+
+  async function getPost() {
+    try {
+      const { data } = await axios.get("http://localhost:4500/api/allpostes");
+      if (data) {
+        const filterPosts = data.filter((post) => post.id_user._id === id);
+        setPosts(filterPosts);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  console.log(posts);
+
   useEffect(() => {
     GetUser();
+    getPost();
   }, []);
   console.log(user);
   return (
@@ -74,8 +89,10 @@ function Profile() {
             2 <span className="text-gray-400">Following</span>
           </p>
         </div>
-        <Post />
-        <Post />
+        {posts &&
+          posts.map((post) => (
+            <Post key={post._id} post={post} getPost={getPost} />
+          ))}
       </div>
     </div>
   );

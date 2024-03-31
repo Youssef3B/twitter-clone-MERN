@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const UserPath = require("./routes/auth");
+const PostPath = require("./routes/post");
+const SavePath = require("./routes/saves");
 const app = express();
 const cors = require("cors");
 
@@ -21,6 +23,8 @@ connectToDatabase();
 app.use(express.json());
 app.use(cors());
 app.use("/api", UserPath);
+app.use("/api", PostPath);
+app.use("/api", SavePath);
 /** */
 
 app.listen(PORT, () => {

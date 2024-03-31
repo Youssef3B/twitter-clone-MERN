@@ -18,5 +18,5 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
-  // "eslint.options": { setting: true },
+  "eslint.options": { setting: true },
 };
